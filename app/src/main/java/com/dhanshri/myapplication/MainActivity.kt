@@ -10,12 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.dhanshri.myapplication.screens.FunFactsNavigationGraph
 import com.dhanshri.myapplication.ui.theme.MyFunTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen() // this is extention function for our activity
         setContent {
             MyFunTheme {
                 // A surface container using the 'background' color from the theme

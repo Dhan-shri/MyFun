@@ -29,7 +29,9 @@ import com.dhanshri.myapplication.ui.theme.UserInputViewModel
 
 
 @Composable
-fun UserInputScreen(userInputViewModel: UserInputViewModel) {
+fun UserInputScreen(
+    userInputViewModel: UserInputViewModel,
+    showWelcomeScreen: (valuesPair: Pair<String, String>) -> Unit) {
     Surface(modifier = Modifier.fillMaxSize()
     ) {
         Column(
@@ -91,6 +93,12 @@ fun UserInputScreen(userInputViewModel: UserInputViewModel) {
                     goToDetailsScreen = {
                         println("===========Coming here")
                         println("=========== ${userInputViewModel.uiState.value.animalSelected} ${userInputViewModel.uiState.value.nameEntered}")
+
+                        showWelcomeScreen(
+                            Pair(
+                                userInputViewModel.uiState.value.nameEntered,
+                                userInputViewModel.uiState.value.animalSelected)
+                        )
                     }
                 )
             }
@@ -102,5 +110,5 @@ fun UserInputScreen(userInputViewModel: UserInputViewModel) {
 @Preview
 @Composable
 fun UserInputScreenPreview() {
-    UserInputScreen(UserInputViewModel())
+    UserInputScreen(UserInputViewModel(), showWelcomeScreen = {})
 }

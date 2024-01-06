@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +31,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -76,7 +80,7 @@ fun TextComponent(txtValue:String, textSize : TextUnit, colorValue: Color = Colo
         text = txtValue,
         color = colorValue,
         fontSize = textSize,
-        fontWeight = FontWeight.Black,
+        fontWeight = FontWeight.Medium,
     )
 
 }
@@ -183,5 +187,64 @@ fun ButtonComponent(
    }
 }
 
+
+
+// Text with Some shadow
+@Composable
+fun TextWithShadow(value : String){
+    val shadowOffSet = Offset(1f, 2f)
+    Text(
+        text = value,
+        color = Color.Black,
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Light,
+        style = TextStyle(
+            shadow = Shadow(
+                color = Utils.generateRandomColor(),
+                offset = shadowOffSet,
+                blurRadius = 2f
+            )
+        )
+    )
+}
+
+
+
+@Composable
+fun FactComposable(value: String) {
+    Card (
+        modifier = Modifier
+            .padding(32.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+
+    ){
+       Column (
+           modifier = Modifier
+               .padding(18.dp, 24.dp)
+
+       ){
+//           Image(painter = painterResource(id = R.drawable.ic_quote), contentDescription = "QuoteImge", modifier = Modifier.rotate(180f))
+           Text(text = "******")
+           Spacer(modifier = Modifier.size(24.dp))
+           
+           TextWithShadow(value = value)
+           
+           Spacer(modifier = Modifier.size(24.dp))
+
+              Text(text = "******")
+           
+//           Image(painter = painterResource(id = R.drawable.ic_quote), contentDescription = "QUoteImage" )
+           
+       }
+    }
+}
+
+@Preview
+@Composable
+fun FactComposablePreview() {
+    FactComposable("hi there")
+}
 
 
