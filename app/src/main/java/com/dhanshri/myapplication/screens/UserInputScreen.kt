@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dhanshri.myapplication.AnimalCard
+import com.dhanshri.myapplication.ButtonComponent
 import com.dhanshri.myapplication.R
 import com.dhanshri.myapplication.TextComponent
 import com.dhanshri.myapplication.TextFieldComponent
@@ -66,9 +67,34 @@ fun UserInputScreen(userInputViewModel: UserInputViewModel) {
 
 
             Row(modifier = Modifier.fillMaxWidth()){
-                AnimalCard(image = R.drawable.cat)
-                AnimalCard(image = R.drawable.dog)
+                AnimalCard(image = R.drawable.cat, animalSelected = {
+                           userInputViewModel.onEvent(UserDataUiEvents.AnimalSelected(it))
+                }, selected = userInputViewModel.uiState.value.animalSelected == "Cat")
+
+
+                AnimalCard(image = R.drawable.dog, animalSelected = {
+                    userInputViewModel.onEvent(UserDataUiEvents.AnimalSelected(it))
+                }, selected = userInputViewModel.uiState.value.animalSelected == "Dog")
             }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+//            if (!userInputViewModel.uiState.value.nameEntered.isNullOrEmpty() && !userInputViewModel.uiState.value.animalSelected.isNullOrEmpty()){
+//                ButtonComponent(
+//                    goToDetailsScreen = {
+//
+//                    }
+//                )
+//            }
+            if (userInputViewModel.isValidState()){
+                ButtonComponent(
+                    goToDetailsScreen = {
+                        println("===========Coming here")
+                        println("=========== ${userInputViewModel.uiState.value.animalSelected} ${userInputViewModel.uiState.value.nameEntered}")
+                    }
+                )
+            }
+
         }
     }
 }

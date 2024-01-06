@@ -1,16 +1,23 @@
 package com.dhanshri.myapplication
 
+import android.widget.Button
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -24,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -114,26 +122,66 @@ fun TextFieldComponentPreview() {
 
 
 @Composable
-fun AnimalCard(image : Int){
+fun AnimalCard(image : Int, selected : Boolean,
+            animalSelected: (animalName:String) -> Unit  ){
+    val localFocusManager = LocalFocusManager.current
     Card(
+        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .padding(24.dp)
             .size(130.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
-        Image(
+        Box (
+
             modifier = Modifier
-                .padding(16.dp)
-                .wrapContentHeight()
-                .wrapContentWidth(),
-            painter = painterResource(id = image),
-            contentDescription = "Animal Image"
-        )
+                .fillMaxSize()
+                .border(
+                    width = 1.dp,
+                    color = if (selected) Color.Green else Color.Transparent,
+                    shape = RoundedCornerShape(8.dp),
+                )
+        ){
+            Image(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .wrapContentHeight()
+                    .wrapContentWidth()
+                    .clickable {
+                        val animalName = if (image == R.drawable.dog) "Dog" else "Cat"
+                        animalSelected(animalName)
+                        localFocusManager.clearFocus()
+                    },
+                painter = painterResource(id = image),
+                contentDescription = "Animal Image"
+            )
+        }
+
     }
 }
 
 @Preview
 @Composable
 fun AnimalCardPreview() {
-    AnimalCard(0)
+    AnimalCard(0, false, animalSelected = {  })
 }
+
+
+
+@Composable
+fun ButtonComponent(
+    goToDetailsScreen : () -> Unit
+){
+   Button(
+       modifier = Modifier
+           .fillMaxWidth()
+           .height(50.dp),
+       onClick = {
+           goToDetailsScreen()
+       }) {
+       TextComponent(txtValue = "Go to Details Screen" , textSize = 18.sp, colorValue = Color.White)
+   }
+}
+
+
+
