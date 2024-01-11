@@ -80,7 +80,7 @@ fun TextComponent(txtValue:String, textSize : TextUnit, colorValue: Color = Colo
         text = txtValue,
         color = colorValue,
         fontSize = textSize,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
     )
 
 }
@@ -231,7 +231,7 @@ fun FactComposable(value: String) {
            
            TextWithShadow(value = value)
            
-           Spacer(modifier = Modifier.size(24.dp))
+           Spacer(modifier = Modifier.size(26.dp))
 
               Text(text = "******")
            

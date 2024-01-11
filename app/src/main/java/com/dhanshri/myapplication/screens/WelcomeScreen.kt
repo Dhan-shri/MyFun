@@ -35,9 +35,9 @@ fun WelcomeScreen(username : String?, animalSelected: String?) {
             
             TextComponent(txtValue = "Thank you !! for sharing your data", textSize = 24.sp )
 
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(150.dp))
 
-            val finalText = if (animalSelected == "Cat") "You are a Cat Lover \uD83D\uDC36" else "You are a Dog Lover \uD83D\uDC15"
+            val finalText = if (animalSelected == "Cat") "Ohh!! You are a Cat Lover \uD83D\uDC36" else "Ohh!! You are a Dog Lover \uD83D\uDC15"
 
             TextWithShadow(value = finalText)
 
